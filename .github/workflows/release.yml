@@ -26,7 +26,8 @@ jobs:
       - name: Rname and Compress files
         # find . -type f  ! -name "*.*" -exec mv {} {}.x86_64 \;
         run: |
-          export ZIP_NAME=product_packager
+          export TAG_VERSION="${GITHUB_REF#refs/*/}"
+          export ZIP_NAME="product_packager-$TAG_VERSION"
           cd bin
           zip -r "$ZIP_NAME-windows.zip" *.exe
           find . -type f  ! -name "*.*" | zip "$ZIP_NAME-linux.zip" -@
