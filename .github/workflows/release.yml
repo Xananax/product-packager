@@ -23,8 +23,14 @@ jobs:
           git clone -b '3.4' --single-branch https://github.com/godotengine/godot.git
           nimble -y build
           nimble -y build -d:mingw
+      - name: Get Tag Name
+        uses: olegtarasov/get-tag@v2.1
+        id: tagName
       - name: Generate Changelog
-        run: echo "GDQuest Product Manager" > ${{ github.workspace }}-CHANGELOG.txt
+        run: |
+          echo "# GDQuest Product Manager" > ${{ github.workspace }}-CHANGELOG.txt
+          echo "commit: ${{ github.sha }}" >> ${{ github.workspace }}-CHANGELOG.txt
+          echo "${GITHUB_REF#refs/*/}: ${{ steps.tagName.outputs.tag }}" >> ${{ github.workspace }}-CHANGELOG.txt
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
@@ -33,6 +39,3 @@ jobs:
           files: |
             gdquest-product-packager
           body_path: ${{ github.workspace }}-CHANGELOG.txt
-          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
