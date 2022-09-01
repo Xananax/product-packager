@@ -1,7 +1,8 @@
-name: Main
+name: Release Product Packager Nim Suite
 
 on:
   workflow_dispatch:
+
   push:
     tags:
       - "v*.*.*"
