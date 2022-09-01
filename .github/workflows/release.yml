@@ -40,14 +40,11 @@ jobs:
           echo "commit: $COMMIT_SHA" >> $FILE
           echo "$TAG_VERSION: $TAG_MESSAGE" >> $FILE
           echo "" >> $FILE
-          echo "Files ending with .exe are meant for Windows x64." >> $FILE
-          echo "Files without an extension are meant for Linux x64." >> $FILE
-          echo "" >> $FILE
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           generate_release_notes: true
           append_body: true
           files: |
-            bin/*
+            bin/*.zip
           body_path: ${{ github.workspace }}-CHANGELOG.txt
