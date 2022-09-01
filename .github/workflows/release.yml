@@ -38,5 +38,5 @@ jobs:
           generate_release_notes: true
           append_body: true
           files: |
-            gdquest-product-packager
+            bin/*
           body_path: ${{ github.workspace }}-CHANGELOG.txt
