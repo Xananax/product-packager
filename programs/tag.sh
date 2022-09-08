@@ -74,6 +74,15 @@ function verify(){
     fi
     return 1
   fi
+  command="git diff -s --exit-code product_packager.nimble"
+  _run "$command"
+  response="$?"
+  if [ $response -ne 0 ]; then
+    echo -e >&2 "${Red}ERROR: the file \`product_packager.nimble\` has been modified$Color_Off"
+    if [ $do_exit -eq 0 ]; then
+      exit 1
+    fi
+  fi
   if [ $do_exit -eq 0 ]; then
     exit 0
   fi
